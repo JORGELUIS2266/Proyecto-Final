@@ -27,6 +27,13 @@ public class AlumnoController {
     public List<Alumno> TraerAlumnos() {
         return alumnoRepository.findAll();
     }
+    // Metodo para traer un alumno por algo en especifico
+    @GetMapping("/traer-alumno/{id}")
+    public ResponseEntity<Alumno> buscarAlumno(@PathVariable Long id) {
+        return alumnoRepository.findById(id)
+        .map(alumno -> ResponseEntity.ok(alumno))
+        .orElse(ResponseEntity.notFound().build());
+    }
 
     // Metodo para insertar un alumno
     @PostMapping("/insertar-alumno")
@@ -58,5 +65,6 @@ public class AlumnoController {
     public void eliminarAlumno(@PathVariable Long id) {
         alumnoRepository.deleteById(id);
     }
+    
 
 }
