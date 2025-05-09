@@ -86,6 +86,7 @@ onMounted( cargarAlumnos);
       <td>
         
         <button class="btn btn-danger">Eliminar</button>
+        <button class="btn btn-danger">Editar</button>
       </td>
     </tr>
   </tbody>
