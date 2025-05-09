@@ -19,7 +19,7 @@
     <description>API de Alumnos</description>
 
     <properties>
-        <java.version>23</java.version>
+        <java.version>24</java.version>
     </properties>
 
     <dependencies>
