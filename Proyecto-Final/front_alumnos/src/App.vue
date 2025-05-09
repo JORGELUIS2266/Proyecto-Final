@@ -15,6 +15,18 @@ const cargarAlumnos = async () => {
   console.log(alumnos.value);
 
 }
+const AgregarAlumno = async () => {
+  await axios.post ('http://localhost:8081/alumnos/insertar-alumno', nuevoAlumno.value);
+  await cargarAlumnos();
+  nuevoAlumno.value = {
+    nombre: '',
+    apellidos: '',
+    carrera: '',
+    telefono: '',
+    imagenURL: ''
+  };
+  cargarAlumnos();
+}
 onMounted( cargarAlumnos);
 </script>
 
@@ -41,7 +53,7 @@ onMounted( cargarAlumnos);
       </div>
       <div class="col-md-6 mb-3">
         <label for="telefono" class="form-label">Telefono</label>
-        <input type="text" class="form-control" id="telefono" v-model="nuevoAlumno.telefono" required>
+        <input type="number" class="form-control" id="telefono" v-model="nuevoAlumno.telefono" required>
       </div>
       <div class="col-md-6 mb-3">
         <label for="imagenURL" class="form-label">Imagen URL</label>
@@ -85,8 +97,9 @@ onMounted( cargarAlumnos);
       <td><img :src="alumno.imagenURL" alt="Imagen de Alumno" width="50"></td>
       <td>
         
-        <button class="btn btn-danger">Eliminar</button>
-        <button class="btn btn-danger">Editar</button>
+        <button class="btn btn-danger mx-2"><i class="bi bi-trash2-fill"></i></button>
+        <button class="btn btn-warning"><i class="bi bi-pencil-fill"></i></button>
+        
       </td>
     </tr>
   </tbody>
