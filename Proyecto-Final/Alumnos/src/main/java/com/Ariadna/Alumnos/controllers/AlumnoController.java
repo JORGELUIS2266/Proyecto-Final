@@ -13,13 +13,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.Ariadna.Alumnos.model.Alumno;
 import com.Ariadna.Alumnos.repository.AlumnoRepository;
 
 @RestController
 @RequestMapping("/alumnos")
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "http://localhost:5173", allowedHeaders = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE})
 public class AlumnoController {
     @Autowired
     private AlumnoRepository alumnoRepository;

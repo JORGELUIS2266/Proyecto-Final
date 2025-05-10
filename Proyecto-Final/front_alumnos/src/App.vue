@@ -9,6 +9,10 @@ const nuevoAlumno = ref({
   telefono: '',
   imagenURL: ''
 });
+
+const editado = ref(false);
+
+
 const cargarAlumnos = async () => {
   const response = await axios.get('http://localhost:8081/alumnos/traer-alumnos')
   alumnos.value = response.data;
@@ -16,7 +20,16 @@ const cargarAlumnos = async () => {
 
 }
 const AgregarAlumno = async () => {
-  await axios.post ('http://localhost:8081/alumnos/insertar-alumno', nuevoAlumno.value);
+  if (editado.value) {
+    await axios.put(`http://localhost:8081/alumnos/insertar-alumno/${nuevoAlumno.value.id}`, nuevoAlumno.value);
+   
+    
+  } else {
+      await axios.post('http://localhost:8081/alumnos/insertar-alumno', nuevoAlumno.value);
+  }
+    
+  
+
   await cargarAlumnos();
   nuevoAlumno.value = {
     nombre: '',
@@ -27,22 +40,18 @@ const AgregarAlumno = async () => {
   };
 
 }
+
+const EditarAlumno = (alumno) => {
+  Object.assign(nuevoAlumno.value, alumno);
+  editado.value = true
+}
+
 const EliminarAlumno = async (id) => {
   await axios.delete(`http://localhost:8081/alumnos/eliminar-alumno/${id}`);
   console.log('Alumno eliminado:', id);
   await cargarAlumnos();
 }
-const EditarAlumno = async (id) => {
-  await axios.put(`http://localhost:8081/alumnos/actualizar-alumno/${id}`, nuevoAlumno.value);
-  await cargarAlumnos();
-  nuevoAlumno.value = {
-    nombre: '',
-    apellidos: '',
-    carrera: '',
-    telefono: '',
-    imagenURL: ''
-  };
-}
+
 onMounted( cargarAlumnos);
 </script>
 
@@ -76,7 +85,10 @@ onMounted( cargarAlumnos);
         <input type="text" class="form-control" id="imagenURL" v-model="nuevoAlumno.imagenURL">
       </div>
       </div>
-      <button type="submit" class="btn btn-primary">Agregar Alumno</button>
+
+      <button type="submit" class="btn btn-primary">
+        {{ editado ? 'Actualizar Alumno' : 'Agregar Alumno' }} 
+      </button>
     </form>
     
      
@@ -114,7 +126,7 @@ onMounted( cargarAlumnos);
       <td>
         
         <button @click="EliminarAlumno(alumno.id)" class="btn btn-danger mx-2"><i class="bi bi-trash"></i></button>
-        <button @click="EditarAlumno(alumno.id)" class="btn btn-warning"><i class="bi bi-pencil-fill"></i></button>
+        <button @click="EditarAlumno(alumno)" class="btn btn-warning"><i class="bi bi-pencil-fill"></i></button>
         
       </td>
     </tr>
