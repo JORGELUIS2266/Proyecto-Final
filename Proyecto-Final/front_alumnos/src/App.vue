@@ -25,7 +25,23 @@ const AgregarAlumno = async () => {
     telefono: '',
     imagenURL: ''
   };
-  cargarAlumnos();
+
+}
+const EliminarAlumno = async (id) => {
+  await axios.delete(`http://localhost:8081/alumnos/eliminar-alumno/${id}`);
+  console.log('Alumno eliminado:', id);
+  await cargarAlumnos();
+}
+const EditarAlumno = async (id) => {
+  await axios.put(`http://localhost:8081/alumnos/actualizar-alumno/${id}`, nuevoAlumno.value);
+  await cargarAlumnos();
+  nuevoAlumno.value = {
+    nombre: '',
+    apellidos: '',
+    carrera: '',
+    telefono: '',
+    imagenURL: ''
+  };
 }
 onMounted( cargarAlumnos);
 </script>
@@ -97,8 +113,8 @@ onMounted( cargarAlumnos);
       <td><img :src="alumno.imagenURL" alt="Imagen de Alumno" width="50"></td>
       <td>
         
-        <button class="btn btn-danger mx-2"><i class="bi bi-trash2-fill"></i></button>
-        <button class="btn btn-warning"><i class="bi bi-pencil-fill"></i></button>
+        <button @click="EliminarAlumno(alumno.id)" class="btn btn-danger mx-2"><i class="bi bi-trash"></i></button>
+        <button @click="EditarAlumno(alumno.id)" class="btn btn-warning"><i class="bi bi-pencil-fill"></i></button>
         
       </td>
     </tr>
