@@ -8,7 +8,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.2.5</version> <!-- Reemplaza según versión válida -->
+        <version>3.2.5</version>
         <relativePath/> 
     </parent>
 
@@ -19,7 +19,9 @@
     <description>API de Alumnos</description>
 
     <properties>
-        <java.version>23</java.version>
+        <java.version>17</java.version>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
     </properties>
 
     <dependencies>
@@ -45,6 +47,7 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
+            <version>1.18.34</version>
             <optional>true</optional>
         </dependency>
         <dependency>
@@ -59,12 +62,12 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
+                <version>3.13.0</version> <configuration>
                     <annotationProcessorPaths>
                         <path>
                             <groupId>org.projectlombok</groupId>
                             <artifactId>lombok</artifactId>
-                        </path>
+                            <version>1.18.34</version> </path>
                     </annotationProcessorPaths>
                 </configuration>
             </plugin>
@@ -83,4 +86,3 @@
         </plugins>
     </build>
 </project>
-
